@@ -1,0 +1,20 @@
+{
+  "name": "mock_graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js localhost 4000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "apollo-server": "^3.3.0",
+    "casual": "^1.6.2",
+    "graphql": "^15.6.0"
+  }
+}
