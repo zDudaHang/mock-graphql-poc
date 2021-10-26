@@ -1,20 +1,55 @@
 {
   "name": "mock_graphql",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js localhost 4000"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.13"
-  },
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "apollo-server": "^3.3.0",
-    "casual": "^1.6.2",
-    "graphql": "^15.6.0"
+    "@apollo/client": "^3.4.16",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "add": "^2.0.6",
+    "bold-ui": "^1.0.0-beta.48",
+    "graphql": "^15.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1",
+    "yarn": "^1.22.17"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.2.1",
+    "@graphql-codegen/typescript": "2.2.4",
+    "@graphql-codegen/typescript-operations": "^2.1.8",
+    "@graphql-codegen/typescript-react-apollo": "^3.1.6"
   }
 }

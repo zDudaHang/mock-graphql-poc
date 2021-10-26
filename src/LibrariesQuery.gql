@@ -1,0 +1,11 @@
+query Libraries {
+    libraries {
+        id
+        name
+        address
+        books {
+            id
+            title
+        }
+    }
+}
