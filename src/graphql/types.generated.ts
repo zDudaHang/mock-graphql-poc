@@ -45,49 +45,53 @@ export type Query = {
   library?: Maybe<Library>;
 };
 
-export type LibrariesQueryVariables = Exact<{ [key: string]: never; }>;
+export type LibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LibrariesQuery = { __typename?: 'Query', libraries?: Array<{ __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string } | null | undefined> | null | undefined } | null | undefined> | null | undefined };
+export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } } | null | undefined> | null | undefined } | null | undefined };
 
 
-export const LibrariesDocument = gql`
-    query Libraries {
-  libraries {
+export const LibraryDocument = gql`
+    query Library {
+  library {
     id
     name
     address
     books {
       id
       title
+      author {
+        id
+        name
+      }
     }
   }
 }
     `;
 
 /**
- * __useLibrariesQuery__
+ * __useLibraryQuery__
  *
- * To run a query within a React component, call `useLibrariesQuery` and pass it any options that fit your needs.
- * When your component renders, `useLibrariesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLibraryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLibraryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useLibrariesQuery({
+ * const { data, loading, error } = useLibraryQuery({
  *   variables: {
  *   },
  * });
  */
-export function useLibrariesQuery(baseOptions?: Apollo.QueryHookOptions<LibrariesQuery, LibrariesQueryVariables>) {
+export function useLibraryQuery(baseOptions?: Apollo.QueryHookOptions<LibraryQuery, LibraryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LibrariesQuery, LibrariesQueryVariables>(LibrariesDocument, options);
+        return Apollo.useQuery<LibraryQuery, LibraryQueryVariables>(LibraryDocument, options);
       }
-export function useLibrariesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LibrariesQuery, LibrariesQueryVariables>) {
+export function useLibraryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LibraryQuery, LibraryQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LibrariesQuery, LibrariesQueryVariables>(LibrariesDocument, options);
+          return Apollo.useLazyQuery<LibraryQuery, LibraryQueryVariables>(LibraryDocument, options);
         }
-export type LibrariesQueryHookResult = ReturnType<typeof useLibrariesQuery>;
-export type LibrariesLazyQueryHookResult = ReturnType<typeof useLibrariesLazyQuery>;
-export type LibrariesQueryResult = Apollo.QueryResult<LibrariesQuery, LibrariesQueryVariables>;
+export type LibraryQueryHookResult = ReturnType<typeof useLibraryQuery>;
+export type LibraryLazyQueryHookResult = ReturnType<typeof useLibraryLazyQuery>;
+export type LibraryQueryResult = Apollo.QueryResult<LibraryQuery, LibraryQueryVariables>;
