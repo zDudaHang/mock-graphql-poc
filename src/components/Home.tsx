@@ -1,4 +1,4 @@
-import { VFlow } from "bold-ui";
+import { Text, VFlow } from "bold-ui";
 import { useLibraryQuery } from "../graphql/types.generated";
 import { LibraryView } from "./LibraryView";
 
@@ -12,5 +12,5 @@ export function HomeView() {
         <LibraryView library={data.library} />
       </VFlow>
     );
-  } else return null;
+  } else return <Text>Nenhum dado encontrado</Text>;
 }

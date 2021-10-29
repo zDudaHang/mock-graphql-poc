@@ -30,7 +30,7 @@ export type Book = {
 export type Library = {
   __typename?: 'Library';
   address: Scalars['String'];
-  books?: Maybe<Array<Maybe<Book>>>;
+  books?: Maybe<Array<Book>>;
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -38,17 +38,17 @@ export type Library = {
 export type Query = {
   __typename?: 'Query';
   author?: Maybe<Author>;
-  authors?: Maybe<Array<Maybe<Author>>>;
+  authors?: Maybe<Array<Author>>;
   book?: Maybe<Book>;
-  books?: Maybe<Array<Maybe<Book>>>;
-  libraries?: Maybe<Array<Maybe<Library>>>;
+  books?: Maybe<Array<Book>>;
+  libraries?: Maybe<Array<Library>>;
   library?: Maybe<Library>;
 };
 
 export type LibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } } | null | undefined> | null | undefined } | null | undefined };
+export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
 
 
 export const LibraryDocument = gql`

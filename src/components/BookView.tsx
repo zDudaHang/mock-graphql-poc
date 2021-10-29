@@ -1,8 +1,9 @@
 import { HeadingSection } from "bold-ui";
+import { Book } from "../graphql/types.generated";
 import { AuthorView } from "./AuthorView";
 
 interface BookViewProps {
-  book: any;
+  book: Book;
 }
 
 export function BookView({ book }: BookViewProps) {

@@ -1,11 +1,12 @@
 import { VFlow, Text, HeadingSection } from "bold-ui";
-import { BookView } from "./BookView";
+import { Library } from "../graphql/types.generated";
+import { ListBookView } from "./ListBookView";
 
 interface LibraryViewProps {
-  library: any
+  library: Library;
 }
 
-export function LibraryView({library}: LibraryViewProps) {
+export function LibraryView({ library }: LibraryViewProps) {
   return (
     <HeadingSection
       level={3}
@@ -13,9 +14,7 @@ export function LibraryView({library}: LibraryViewProps) {
     >
       <VFlow>
         <Text>Endereço: {library.address}</Text>
-        <Text>Quantidade de livros: {library.books?.length}</Text>
-
-        {library.books?.map((book: any) => book && <BookView book={book} />)}
+        <ListBookView books={library.books} />
       </VFlow>
     </HeadingSection>
   );

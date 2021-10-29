@@ -2,7 +2,7 @@ type Library {
   id: ID!
   name: String!
   address: String!
-  books: [Book]
+  books: [Book!]
 }
 
 type Book {
@@ -17,12 +17,12 @@ type Author {
 }
 
 type Query {
-  libraries: [Library]
+  libraries: [Library!]
   library: Library
 
-  authors: [Author]
+  authors: [Author!]
   author: Author
 
-  books: [Book]
+  books: [Book!]
   book: Book
 }

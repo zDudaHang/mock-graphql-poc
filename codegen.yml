@@ -9,3 +9,6 @@ generates:
       - "typescript-react-apollo"
     config:
       withHooks: true
+  src/graphql/introspection.generated.json:
+    plugins:
+      - introspection
