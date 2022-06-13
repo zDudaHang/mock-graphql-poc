@@ -18,13 +18,13 @@ type Author {
 
 type Query {
   libraries: [Library!]
-  library(id: ID!): Library
+  library: Library
 
   authors: [Author!]
   author(id: ID!): Author
 
   books: [Book!]
-  book(id: ID!): Book
+  bookByName(name: String!): Book
 }
 
 input CreateBookInput {
