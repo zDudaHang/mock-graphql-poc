@@ -43,8 +43,12 @@ export type Author = {
 export type Book = {
   __typename?: 'Book';
   author: Author;
+  description: Scalars['String'];
   id: Scalars['ID'];
+  isRented: Scalars['Boolean'];
+  rent: Scalars['Int'];
   title: Scalars['String'];
+  totalPages: Scalars['Int'];
 };
 
 export type Library = {
@@ -66,8 +70,11 @@ export type MutationCreateBookArgs = {
 };
 
 export type CreateBookInput = {
-  authorID: Scalars['ID'];
+  authorName: Scalars['String'];
+  description: Scalars['String'];
+  rent: Scalars['Int'];
   title: Scalars['String'];
+  totalPages: Scalars['Int'];
 };
 
 export type BookByNameQueryVariables = Exact<{
@@ -75,7 +82,7 @@ export type BookByNameQueryVariables = Exact<{
 }>;
 
 
-export type BookByNameQuery = { __typename?: 'Query', bookByName?: { __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
+export type BookByNameQuery = { __typename?: 'Query', bookByName?: { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
 
 export type CreateBookMutationVariables = Exact<{
   input: CreateBookInput;
@@ -87,7 +94,7 @@ export type CreateBookMutation = { __typename?: 'Mutation', createBook?: { __typ
 export type LibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
+export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
 
 
 export const BookByNameDocument = gql`
@@ -95,6 +102,10 @@ export const BookByNameDocument = gql`
   bookByName(name: $name) {
     id
     title
+    description
+    totalPages
+    rent
+    isRented
     author {
       id
       name
@@ -177,6 +188,10 @@ export const LibraryDocument = gql`
     books {
       id
       title
+      description
+      totalPages
+      rent
+      isRented
       author {
         id
         name

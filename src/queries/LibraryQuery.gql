@@ -1,15 +1,19 @@
 query Library {
-    library {
+  library {
+    id
+    name
+    address
+    books {
+      id
+      title
+      description
+      totalPages
+      rent
+      isRented
+      author {
         id
         name
-        address
-        books {
-            id
-            title
-            author {
-                id
-                name
-            }
-        }
+      }
     }
+  }
 }
