@@ -1,8 +1,8 @@
-import { Text } from "bold-ui";
-import { Author } from "../graphql/types.generated";
+import { Text } from "bold-ui"
+import { Author } from "../graphql/types.generated"
 
 interface AuthorViewProps {
-  author?: Author;
+  author?: Author
 }
 
 export function AuthorView({ author }: AuthorViewProps) {
@@ -10,5 +10,5 @@ export function AuthorView({ author }: AuthorViewProps) {
     <Text>
       Autor #{author?.id}: {author?.name}
     </Text>
-  );
+  )
 }

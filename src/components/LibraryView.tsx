@@ -1,9 +1,9 @@
-import { VFlow, Text, HeadingSection } from "bold-ui";
-import { Library } from "../graphql/types.generated";
-import { ListBookView } from "./ListBookView";
+import { VFlow, Text, HeadingSection } from "bold-ui"
+import { Library } from "../graphql/types.generated"
+import { ListBookView } from "./ListBookView"
 
 interface LibraryViewProps {
-  library: Library;
+  library: Library
 }
 
 export function LibraryView({ library }: LibraryViewProps) {
@@ -17,5 +17,5 @@ export function LibraryView({ library }: LibraryViewProps) {
         <ListBookView books={library.books} />
       </VFlow>
     </HeadingSection>
-  );
+  )
 }

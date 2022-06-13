@@ -1,9 +1,9 @@
-import { HeadingSection } from "bold-ui";
-import { Book } from "../graphql/types.generated";
-import { AuthorView } from "./AuthorView";
+import { HeadingSection } from "bold-ui"
+import { Book } from "../graphql/types.generated"
+import { AuthorView } from "./AuthorView"
 
 interface BookViewProps {
-  book: Book;
+  book: Book
 }
 
 export function BookView({ book }: BookViewProps) {
@@ -11,5 +11,5 @@ export function BookView({ book }: BookViewProps) {
     <HeadingSection level={4} title={`Livro #${book.id}: ${book.title}`}>
       <AuthorView author={book.author} />
     </HeadingSection>
-  );
+  )
 }
