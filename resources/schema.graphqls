@@ -29,7 +29,7 @@ type Query {
   author(id: ID!): Author
 
   books: [Book!]
-  bookByName(name: String!): Book
+  bookByName(name: String!): [Book]
 }
 
 input CreateBookInput {

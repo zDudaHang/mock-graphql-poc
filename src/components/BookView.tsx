@@ -1,15 +1,27 @@
-import { HeadingSection } from "bold-ui"
-import { Book } from "../graphql/types.generated"
+import { Heading, HFlow, Tag, VFlow, Text, Button } from "bold-ui"
+import { BookFragment } from "../graphql/types.generated"
 import { AuthorView } from "./AuthorView"
 
 interface BookViewProps {
-  book: Book
+  book: BookFragment
 }
 
-export function BookView({ book }: BookViewProps) {
+export function BookView(props: BookViewProps) {
+  const {
+    book: { id, author, description, isRented, rent, title },
+  } = props
+
   return (
-    <HeadingSection level={4} title={`Livro #${book.id}: ${book.title}`}>
-      <AuthorView author={book.author} />
-    </HeadingSection>
+    <VFlow>
+      <HFlow>
+        <Heading level={4} title={`Livro #${id}: ${title}`} />
+        <Tag type={isRented ? "danger" : "success"}>
+          {isRented ? "Alugado" : "Disponível"}
+        </Tag>
+      </HFlow>
+      <Text variant="secondary">{description}</Text>
+      <AuthorView author={author} />
+      {!isRented && <Button kind="primary">Alugar por R${rent}</Button>}
+    </VFlow>
   )
 }

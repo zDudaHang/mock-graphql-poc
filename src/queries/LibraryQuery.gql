@@ -4,16 +4,7 @@ query Library {
     name
     address
     books {
-      id
-      title
-      description
-      totalPages
-      rent
-      isRented
-      author {
-        id
-        name
-      }
+      ...Book
     }
   }
 }

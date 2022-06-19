@@ -1,8 +1,11 @@
-import { Alert, Button, HFlow, VFlow } from "bold-ui"
-import { useState } from "react"
+import { Button, HFlow, VFlow } from "bold-ui"
 import { Form, FormRenderProps } from "react-final-form"
-import { useCreateBookMutation } from "../graphql/types.generated"
-import { CampoTexto } from "./CampoTexto"
+import {
+  BookFragment,
+  CreateBookMutation,
+  useCreateBookMutation,
+} from "../../graphql/types.generated"
+import { CampoTexto } from "../CampoTexto"
 
 interface BookFormModel {
   title: string
@@ -12,12 +15,20 @@ interface BookFormModel {
   authorName: string
 }
 
-export function BookForm() {
-  const [createBook, data] = useCreateBookMutation({
-    onCompleted: () => setIsAlertVisible(true),
+interface CreateBookFormProps {
+  onSubmitCompleted(newBook: BookFragment): void
+}
+
+export function CreateBookForm(props: CreateBookFormProps) {
+  const { onSubmitCompleted } = props
+
+  const onCompleted = (data: CreateBookMutation) =>
+    onSubmitCompleted(data.createBook)
+
+  const [createBook] = useCreateBookMutation({
+    onCompleted,
     onError: (error) => console.log(error),
   })
-  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false)
 
   const handleSubmit = (values: BookFormModel) => {
     console.log(values)
@@ -27,7 +38,7 @@ export function BookForm() {
   const renderForm = (formProps: FormRenderProps<BookFormModel>) => {
     return (
       <form onSubmit={formProps.handleSubmit}>
-        <VFlow style={{ marginTop: "1rem" }}>
+        <VFlow>
           <CampoTexto label="Título" component="input" name="title" />
           <CampoTexto label="Descrição" component="input" name="description" />
           <CampoTexto
@@ -57,16 +68,5 @@ export function BookForm() {
     )
   }
 
-  const newBook = data.data?.createBook
-
-  return (
-    <VFlow>
-      {isAlertVisible && newBook && (
-        <Alert type="success" inline>
-          Livro {newBook.title} #{newBook.id} foi criado com sucesso!{" "}
-        </Alert>
-      )}
-      <Form<BookFormModel> onSubmit={handleSubmit} render={renderForm} />
-    </VFlow>
-  )
+  return <Form<BookFormModel> onSubmit={handleSubmit} render={renderForm} />
 }

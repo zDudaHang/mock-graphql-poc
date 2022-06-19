@@ -18,7 +18,7 @@ export type Query = {
   __typename?: 'Query';
   author?: Maybe<Author>;
   authors?: Maybe<Array<Author>>;
-  bookByName?: Maybe<Book>;
+  bookByName?: Maybe<Array<Maybe<Book>>>;
   books?: Maybe<Array<Book>>;
   libraries?: Maybe<Array<Library>>;
   library?: Maybe<Library>;
@@ -82,37 +82,43 @@ export type BookByNameQueryVariables = Exact<{
 }>;
 
 
-export type BookByNameQuery = { __typename?: 'Query', bookByName?: { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
+export type BookByNameQuery = { __typename?: 'Query', bookByName?: Array<{ __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined> | null | undefined };
+
+export type BookFragment = { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } };
 
 export type CreateBookMutationVariables = Exact<{
   input: CreateBookInput;
 }>;
 
 
-export type CreateBookMutation = { __typename?: 'Mutation', createBook?: { __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
+export type CreateBookMutation = { __typename?: 'Mutation', createBook?: { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
 
 export type LibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
 
-
+export const BookFragmentDoc = gql`
+    fragment Book on Book {
+  id
+  title
+  description
+  totalPages
+  author {
+    id
+    name
+  }
+  rent
+  isRented
+}
+    `;
 export const BookByNameDocument = gql`
     query BookByName($name: String!) {
   bookByName(name: $name) {
-    id
-    title
-    description
-    totalPages
-    rent
-    isRented
-    author {
-      id
-      name
-    }
+    ...Book
   }
 }
-    `;
+    ${BookFragmentDoc}`;
 
 /**
  * __useBookByNameQuery__
@@ -144,15 +150,10 @@ export type BookByNameQueryResult = Apollo.QueryResult<BookByNameQuery, BookByNa
 export const CreateBookDocument = gql`
     mutation CreateBook($input: CreateBookInput!) {
   createBook(input: $input) {
-    id
-    title
-    author {
-      id
-      name
-    }
+    ...Book
   }
 }
-    `;
+    ${BookFragmentDoc}`;
 export type CreateBookMutationFn = Apollo.MutationFunction<CreateBookMutation, CreateBookMutationVariables>;
 
 /**
@@ -186,20 +187,11 @@ export const LibraryDocument = gql`
     name
     address
     books {
-      id
-      title
-      description
-      totalPages
-      rent
-      isRented
-      author {
-        id
-        name
-      }
+      ...Book
     }
   }
 }
-    `;
+    ${BookFragmentDoc}`;
 
 /**
  * __useLibraryQuery__

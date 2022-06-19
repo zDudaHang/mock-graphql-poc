@@ -1,10 +1,5 @@
 mutation CreateBook($input: CreateBookInput!) {
   createBook(input: $input) {
-    id
-    title
-    author {
-      id
-      name
-    }
+    ...Book
   }
 }

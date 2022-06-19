@@ -1,4 +1,5 @@
 import { ApolloProvider } from "@apollo/client"
+import { VFlow } from "bold-ui"
 import { client } from "./apollo/client"
 import { HomeRootView } from "./components/HomeRootView"
 import { Navbar } from "./components/Navbar"
@@ -6,8 +7,10 @@ import { Navbar } from "./components/Navbar"
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Navbar />
-      <HomeRootView />
+      <VFlow>
+        <Navbar />
+        <HomeRootView />
+      </VFlow>
     </ApolloProvider>
   )
 }

@@ -1,14 +1,5 @@
 query BookByName($name: String!) {
   bookByName(name: $name) {
-    id
-    title
-    description
-    totalPages
-    rent
-    isRented
-    author {
-      id
-      name
-    }
+    ...Book
   }
 }
