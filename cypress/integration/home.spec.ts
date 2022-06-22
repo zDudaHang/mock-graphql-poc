@@ -57,7 +57,5 @@ describe("Home", () => {
     cy.contains("Biblioteca #1: Nome biblioteca teste");
     cy.contains("Endereço: Endereço teste");
     cy.contains("Quantidade de livros: 1");
-    cy.contains("Livro #1: Título teste");
-    cy.contains('Autor #1: Nome autor teste')
   });
 });
