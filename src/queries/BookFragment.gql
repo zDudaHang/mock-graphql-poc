@@ -1,0 +1,12 @@
+fragment Book on Book {
+  id
+  title
+  description
+  totalPages
+  author {
+    id
+    name
+  }
+  rent
+  isRented
+}

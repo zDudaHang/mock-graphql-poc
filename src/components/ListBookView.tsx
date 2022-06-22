@@ -1,9 +1,9 @@
-import { VFlow, Text } from "bold-ui";
-import { Book } from "../graphql/types.generated";
-import { BookView } from "./BookView";
+import { VFlow, Text } from "bold-ui"
+import { BookFragment } from "../graphql/types.generated"
+import { BookView } from "./BookView"
 
 interface ListBookViewProps {
-  books?: Book[] | null;
+  books: BookFragment[]
 }
 
 export function ListBookView({ books }: ListBookViewProps) {
@@ -11,10 +11,12 @@ export function ListBookView({ books }: ListBookViewProps) {
     return (
       <VFlow>
         <Text>Quantidade de livros: {books.length}</Text>
-        {books.map((book: Book) => <BookView book={book}/>)}
+        {books.map((book: BookFragment) => (
+          <BookView book={book} />
+        ))}
       </VFlow>
-    );
+    )
   } else {
-      return (<Text>Sem livros</Text>)
+    return <Text>Sem livros</Text>
   }
 }

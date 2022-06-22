@@ -1,0 +1,5 @@
+query BookByName($name: String!) {
+  bookByName(name: $name) {
+    ...Book
+  }
+}

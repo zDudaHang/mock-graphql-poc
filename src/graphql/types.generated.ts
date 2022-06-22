@@ -14,6 +14,26 @@ export type Scalars = {
   Float: number;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  author?: Maybe<Author>;
+  authors?: Maybe<Array<Author>>;
+  bookByName?: Maybe<Array<Maybe<Book>>>;
+  books?: Maybe<Array<Book>>;
+  libraries?: Maybe<Array<Library>>;
+  library?: Maybe<Library>;
+};
+
+
+export type QueryAuthorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryBookByNameArgs = {
+  name: Scalars['String'];
+};
+
 export type Author = {
   __typename?: 'Author';
   id: Scalars['ID'];
@@ -23,8 +43,12 @@ export type Author = {
 export type Book = {
   __typename?: 'Book';
   author: Author;
+  description: Scalars['String'];
   id: Scalars['ID'];
+  isRented: Scalars['Boolean'];
+  rent: Scalars['Int'];
   title: Scalars['String'];
+  totalPages: Scalars['Int'];
 };
 
 export type Library = {
@@ -35,22 +59,127 @@ export type Library = {
   name: Scalars['String'];
 };
 
-export type Query = {
-  __typename?: 'Query';
-  author?: Maybe<Author>;
-  authors?: Maybe<Array<Author>>;
-  book?: Maybe<Book>;
-  books?: Maybe<Array<Book>>;
-  libraries?: Maybe<Array<Library>>;
-  library?: Maybe<Library>;
+export type Mutation = {
+  __typename?: 'Mutation';
+  createBook?: Maybe<Book>;
 };
+
+
+export type MutationCreateBookArgs = {
+  input?: Maybe<CreateBookInput>;
+};
+
+export type CreateBookInput = {
+  authorName: Scalars['String'];
+  description: Scalars['String'];
+  rent: Scalars['Int'];
+  title: Scalars['String'];
+  totalPages: Scalars['Int'];
+};
+
+export type BookByNameQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type BookByNameQuery = { __typename?: 'Query', bookByName?: Array<{ __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined> | null | undefined };
+
+export type BookFragment = { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } };
+
+export type CreateBookMutationVariables = Exact<{
+  input: CreateBookInput;
+}>;
+
+
+export type CreateBookMutation = { __typename?: 'Mutation', createBook?: { __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } } | null | undefined };
 
 export type LibraryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
+export type LibraryQuery = { __typename?: 'Query', library?: { __typename?: 'Library', id: string, name: string, address: string, books?: Array<{ __typename?: 'Book', id: string, title: string, description: string, totalPages: number, rent: number, isRented: boolean, author: { __typename?: 'Author', id: string, name: string } }> | null | undefined } | null | undefined };
 
+export const BookFragmentDoc = gql`
+    fragment Book on Book {
+  id
+  title
+  description
+  totalPages
+  author {
+    id
+    name
+  }
+  rent
+  isRented
+}
+    `;
+export const BookByNameDocument = gql`
+    query BookByName($name: String!) {
+  bookByName(name: $name) {
+    ...Book
+  }
+}
+    ${BookFragmentDoc}`;
 
+/**
+ * __useBookByNameQuery__
+ *
+ * To run a query within a React component, call `useBookByNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBookByNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBookByNameQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useBookByNameQuery(baseOptions: Apollo.QueryHookOptions<BookByNameQuery, BookByNameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BookByNameQuery, BookByNameQueryVariables>(BookByNameDocument, options);
+      }
+export function useBookByNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BookByNameQuery, BookByNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BookByNameQuery, BookByNameQueryVariables>(BookByNameDocument, options);
+        }
+export type BookByNameQueryHookResult = ReturnType<typeof useBookByNameQuery>;
+export type BookByNameLazyQueryHookResult = ReturnType<typeof useBookByNameLazyQuery>;
+export type BookByNameQueryResult = Apollo.QueryResult<BookByNameQuery, BookByNameQueryVariables>;
+export const CreateBookDocument = gql`
+    mutation CreateBook($input: CreateBookInput!) {
+  createBook(input: $input) {
+    ...Book
+  }
+}
+    ${BookFragmentDoc}`;
+export type CreateBookMutationFn = Apollo.MutationFunction<CreateBookMutation, CreateBookMutationVariables>;
+
+/**
+ * __useCreateBookMutation__
+ *
+ * To run a mutation, you first call `useCreateBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBookMutation, { data, loading, error }] = useCreateBookMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBookMutation(baseOptions?: Apollo.MutationHookOptions<CreateBookMutation, CreateBookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBookMutation, CreateBookMutationVariables>(CreateBookDocument, options);
+      }
+export type CreateBookMutationHookResult = ReturnType<typeof useCreateBookMutation>;
+export type CreateBookMutationResult = Apollo.MutationResult<CreateBookMutation>;
+export type CreateBookMutationOptions = Apollo.BaseMutationOptions<CreateBookMutation, CreateBookMutationVariables>;
 export const LibraryDocument = gql`
     query Library {
   library {
@@ -58,16 +187,11 @@ export const LibraryDocument = gql`
     name
     address
     books {
-      id
-      title
-      author {
-        id
-        name
-      }
+      ...Book
     }
   }
 }
-    `;
+    ${BookFragmentDoc}`;
 
 /**
  * __useLibraryQuery__

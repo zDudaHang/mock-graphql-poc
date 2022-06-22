@@ -8,7 +8,12 @@ type Library {
 type Book {
   id: ID!
   title: String!
+  description: String!
+  totalPages: Int!
   author: Author!
+  # Rent:
+  rent: Int!
+  isRented: Boolean!
 }
 
 type Author {
@@ -21,8 +26,20 @@ type Query {
   library: Library
 
   authors: [Author!]
-  author: Author
+  author(id: ID!): Author
 
   books: [Book!]
-  book: Book
+  bookByName(name: String!): [Book]
+}
+
+input CreateBookInput {
+  title: String!
+  description: String!
+  totalPages: Int!
+  authorName: String!
+  rent: Int!
+}
+
+type Mutation {
+  createBook(input: CreateBookInput): Book
 }

@@ -1,21 +1,21 @@
-import { VFlow, Text, HeadingSection } from "bold-ui";
-import { Library } from "../graphql/types.generated";
-import { ListBookView } from "./ListBookView";
+import { VFlow, Text, HeadingSection } from "bold-ui"
+import { useLibraryQuery } from "../graphql/types.generated"
+import { ListBookView } from "./ListBookView"
 
-interface LibraryViewProps {
-  library: Library;
-}
+export function LibraryView() {
+  const { data } = useLibraryQuery()
 
-export function LibraryView({ library }: LibraryViewProps) {
-  return (
-    <HeadingSection
-      level={3}
-      title={`Biblioteca #${library.id}: ${library.name}`}
-    >
-      <VFlow>
-        <Text>Endereço: {library.address}</Text>
-        <ListBookView books={library.books} />
-      </VFlow>
-    </HeadingSection>
-  );
+  if (data && data.library) {
+    return (
+      <HeadingSection
+        level={3}
+        title={`Biblioteca #${data.library.id}: ${data.library.name}`}
+      >
+        <VFlow>
+          <Text>Endereço: {data.library.address}</Text>
+          <ListBookView books={data.library.books} />
+        </VFlow>
+      </HeadingSection>
+    )
+  } else return <Text>Nenhum dado encontrado</Text>
 }
